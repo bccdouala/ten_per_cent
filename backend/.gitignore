@@ -1,0 +1,81 @@
+# Node.js dependencies
+/node_modules
+/npm-debug.log*
+/yarn-debug.log*
+/yarn-error.log*
+
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+lerna-debug.log*
+
+# Environment variables
+.env
+.env.test
+.env.production
+
+# Build output
+/dist
+/build
+/out
+/coverage
+
+# TypeScript compiled files
+*.tsbuildinfo
+
+# Dependency directories
+/.pnp
+.pnp.js
+
+# Debug files
+.vscode
+.idea
+.DS_Store
+
+# MySQL database dump
+*.sql
+*.dump
+
+# Optional npm cache directory
+.npm
+
+# TypeScript cache and IDE specific files
+*.tscache
+*.swp
+*.swo
+*.swn
+
+# Test coverage
+/coverage
+/nyc_output
+
+# Next.js or Nuxt.js build output
+/.next
+/.nuxt
+
+# Temporary files and artifacts
+/tmp
+/temp
+*.tmp
+*.bak
+
+# Mac system files
+.DS_Store
+
+# Logs and debugging output from PM2 or other process managers
+.pm2/logs
+pm2/pid
+
+# Editor-specific files (JetBrains, VSCode, etc.)
+.idea/
+.vscode/
+*.code-workspace
+
+# Ignore yarn lock file (if using npm)
+yarn.lock
+
+# Ignore specific database or migration files
+/migrations
+/seeds
