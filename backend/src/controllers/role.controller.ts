@@ -7,7 +7,7 @@ export const createRole = async (req: Request, res: Response) => {
     const role = req.body;
 
     if (!role) {
-      res.status(404).json({ message: "User not found" });
+      res.status(404).json({ message: "Invalid body request" });
       return;
     }
 
