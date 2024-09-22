@@ -4,6 +4,7 @@ import prettier from 'eslint-plugin-prettier';
 
 export default [
   {
+    types: 'module',
     env: {
       node: true,
       es2020: true,
