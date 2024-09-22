@@ -1,6 +1,5 @@
 name: CI Pipeline for Backend
 
-# Trigger the workflow on every push and pull request on any branch
 on:
   push:
     branches:
@@ -31,26 +30,14 @@ jobs:
       # Step 3: Install dependencies
       - name: Install dependencies
         run: npm install
-        working-directory: ./backend
+        working-directory: backend
 
       # Step 4: Run ESLint
       - name: Run ESLint
         run: npm run lint
-        working-directory: ./backend
+        working-directory: backend
 
       # Step 5: Check Prettier formatting
       - name: Check Prettier formatting
         run: npm run format -- --check
-        working-directory: ./backend
-
-    #   # Step 6: Run tests
-    # #   - name: Run tests
-    # #     run: npm test
-
-    # # Step 7: Auto-fix Prettier formatting issues
-    #   - name: Auto-fix Prettier issues
-    #   run: npm run format -- --write
-
-    # # Step 8: Auto-fix ESLint issues
-    #   - name: Auto-fix ESLint issues
-    #   run: npm run lint:fix
+        working-directory: backend
