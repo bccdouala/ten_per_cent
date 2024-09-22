@@ -1,5 +1,4 @@
 // eslint.config.js
-import js from '@eslint/js';
 import typescript from '@typescript-eslint/eslint-plugin';
 import prettier from 'eslint-plugin-prettier';
 
