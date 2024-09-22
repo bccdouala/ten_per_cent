@@ -26,7 +26,7 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '20' # Use the Node.js version you're working with
+          node-version: '20'
 
       # Step 3: Install dependencies
       - name: Install dependencies
@@ -40,14 +40,4 @@ jobs:
       - name: Check Prettier formatting
         run: npm run format -- --check
 
-    #   # Step 6: Run tests
-    # #   - name: Run tests
-    # #     run: npm test
-
-    # # Step 7: Auto-fix Prettier formatting issues
-    #   - name: Auto-fix Prettier issues
-    #   run: npm run format -- --write
-
-    # # Step 8: Auto-fix ESLint issues
-    #   - name: Auto-fix ESLint issues
-    #   run: npm run lint:fix
+  
