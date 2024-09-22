@@ -1,19 +1,22 @@
 import { db } from "./config/database";
-
+// Seed roles data
 async function seedRoles() {
   const roles = [
-    { name: "Admin", description: "Administrator role", isDeleted: false },
-    { name: "Member", description: "Regular user role", isDeleted: false },
+    { name: "Admin", description: "Administrator role", isDelete: false },
+    { name: "Member", description: "Regular user role", isDelete: false },
   ];
 
   for (const role of roles) {
-    const sql =
-      "INSERT INTO roles (name, description, isDeleted) VALUES (?, ?, ?)";
-    await db.query(sql, [role.name, role.description, role.isDeleted]);
+    const query = `
+      INSERT INTO public.roles (name, description, isdelete, createdat, updatedat)
+      VALUES ($1, $2, $3, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP)
+    `;
+    await db.query(query, [role.name, role.description, role.isDelete]);
   }
-  console.log("Roles seeded!");
+  console.log("Roles seeded successfully!");
 }
 
+// Seed users data
 async function seedUsers() {
   const users = [
     {
@@ -25,7 +28,7 @@ async function seedUsers() {
       password: "password123",
       isOntrack: true,
       isValid: true,
-      role_id: 1,
+      role_id: 1, // Assuming Admin
     },
     {
       firstName: "Jane",
@@ -36,15 +39,17 @@ async function seedUsers() {
       password: "password456",
       isOntrack: false,
       isValid: true,
-      role_id: 2,
+      role_id: 2, // Assuming Member
     },
   ];
 
   for (const user of users) {
-    const sql = `INSERT INTO users 
-      (firstName, lastName, dateOfBirth, email, phone, password, isOntrack, isValid, role_id)
-      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`;
-    await db.query(sql, [
+    const query = `
+      INSERT INTO public.users
+        (firstname, lastname, dateofbirth, email, phone, password, isontrack, isvalid, role_id, createdat, updatedat)
+      VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP)
+    `;
+    await db.query(query, [
       user.firstName,
       user.lastName,
       user.dateOfBirth,
@@ -56,54 +61,73 @@ async function seedUsers() {
       user.role_id,
     ]);
   }
-  console.log("Users seeded!");
+  console.log("Users seeded successfully!");
 }
 
+// Seed payments data
 async function seedPayments() {
   const payments = [
     {
       amount: 50.0,
       createdBy: "Admin",
       paymentMode: "Credit Card",
-      user_id: 1,
+      user_id: 1, // Assuming payment by Admin (John Doe)
     },
-    { amount: 30.0, createdBy: "Jane", paymentMode: "PayPal", user_id: 2 },
+    {
+      amount: 30.0,
+      createdBy: "Jane",
+      paymentMode: "PayPal",
+      user_id: 2, // Assuming payment by Member (Jane Smith)
+    },
   ];
 
   for (const payment of payments) {
-    const sql = `INSERT INTO payments 
-      (amount, createdBy, paymentMode, user_id) 
-      VALUES (?, ?, ?, ?)`;
-    await db.query(sql, [
+    const query = `
+      INSERT INTO public.payments
+        (amount, createdby, paymentmode, user_id, createdat, updatedat)
+      VALUES ($1, $2, $3, $4, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP)
+    `;
+    await db.query(query, [
       payment.amount,
       payment.createdBy,
       payment.paymentMode,
       payment.user_id,
     ]);
   }
-  console.log("Payments seeded!");
+  console.log("Payments seeded successfully!");
 }
 
+// Seed tracking sheets data
 async function seedTrackingSheets() {
   const trackingSheets = [
-    { payment_id: 1, user_id: 1 },
-    { payment_id: 2, user_id: 2 },
+    {
+      payment_id: 1, // Assuming tracking for John Doe's payment
+      user_id: 1,
+    },
+    {
+      payment_id: 2, // Assuming tracking for Jane Smith's payment
+      user_id: 2,
+    },
   ];
 
   for (const sheet of trackingSheets) {
-    const sql = `INSERT INTO trackingSheets (payment_id, user_id) VALUES (?, ?)`;
-    await db.query(sql, [sheet.payment_id, sheet.user_id]);
+    const query = `
+      INSERT INTO public.trackingsheets (payment_id, user_id, createdat, updatedat)
+      VALUES ($1, $2, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP)
+    `;
+    await db.query(query, [sheet.payment_id, sheet.user_id]);
   }
-  console.log("Tracking sheets seeded!");
+  console.log("Tracking Sheets seeded successfully!");
 }
 
+// Main seeding function
 async function seed() {
   try {
     await seedRoles();
     await seedUsers();
     await seedPayments();
     await seedTrackingSheets();
-    console.log("Database seeding completed!");
+    console.log("Database seeding completed successfully!");
   } catch (error) {
     console.error("Seeding failed:", error);
   } finally {
@@ -111,4 +135,5 @@ async function seed() {
   }
 }
 
+// Run seed function
 seed();
